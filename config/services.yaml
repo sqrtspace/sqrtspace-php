@@ -1,0 +1,48 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Memory Monitor
+    SqrtSpace\SpaceTime\Memory\MemoryPressureMonitor:
+        arguments:
+            $memoryLimit: '%spacetime.memory_limit%'
+
+    # Memory Handlers
+    SqrtSpace\SpaceTime\Memory\Handlers\LoggingHandler:
+        arguments:
+            $logger: '@logger'
+            $minLevel: !php/const SqrtSpace\SpaceTime\Memory\MemoryPressureLevel::MEDIUM
+        tags:
+            - { name: 'spacetime.memory_handler' }
+
+    SqrtSpace\SpaceTime\Memory\Handlers\GarbageCollectionHandler:
+        tags:
+            - { name: 'spacetime.memory_handler' }
+
+    # External Storage
+    SqrtSpace\SpaceTime\Storage\ExternalStorage:
+        factory: ['SqrtSpace\SpaceTime\Storage\ExternalStorage', 'create']
+        arguments:
+            $prefix: 'symfony_'
+
+    # Algorithms
+    SqrtSpace\SpaceTime\Algorithms\ExternalSort:
+        public: true
+
+    SqrtSpace\SpaceTime\Algorithms\ExternalGroupBy:
+        public: true
+
+    # Checkpoint Storage
+    SqrtSpace\SpaceTime\Checkpoint\FileCheckpointStorage:
+        arguments:
+            $basePath: '%spacetime.storage_path%/checkpoints'
+
+    SqrtSpace\SpaceTime\Checkpoint\CheckpointStorage:
+        alias: SqrtSpace\SpaceTime\Checkpoint\FileCheckpointStorage
+
+    # Database Query Builder
+    SqrtSpace\SpaceTime\Database\SpaceTimeQueryBuilder:
+        factory: ['SqrtSpace\SpaceTime\Database\SpaceTimeQueryBuilder', 'new']
+        arguments:
+            $connection: '@database_connection'
