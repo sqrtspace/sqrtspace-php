@@ -85,5 +85,11 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nuget.pkg.github.com/sqrtspace/index.json"
+        }
+    ]
 }

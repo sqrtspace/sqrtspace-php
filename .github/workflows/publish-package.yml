@@ -1,0 +1,35 @@
+name: Publish Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish-github:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+      
+      - name: Validate composer.json
+        run: composer validate
+      
+      - name: Configure GitHub Packages
+        run: |
+          composer config repositories.github '{"type": "vcs", "url": "https://github.com/sqrtspace/spacetime-php"}'
+          composer config --global --auth github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Publish to GitHub Packages
+        run: |
+          sed -i 's/"name": "sqrtspace\/spacetime"/"name": "sqrtspace\/spacetime-php"/' composer.json
+          composer config repositories.github '{"type": "composer", "url": "https://nuget.pkg.github.com/sqrtspace/index.json"}'
+          echo "{\"github-oauth\": {\"github.com\": \"${{ secrets.GITHUB_TOKEN }}\"}}" > auth.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
