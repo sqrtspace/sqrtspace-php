@@ -1,0 +1,24 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - tests/fixtures/*
+    treatPhpDocTypesAsCertain: false
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    reportUnmatchedIgnoredErrors: true
+    ignoreErrors:
+        # Allow using superglobals for framework integrations
+        - '#Accessing superglobal#'
+        # Allow dynamic properties in tests
+        -
+            message: '#Access to an undefined property#'
+            path: tests/*
+    parallel:
+        jobSize: 20
+        maximumNumberOfProcesses: 4
+    cache:
+        nodesByFileCountMax: 512
+        nodesByStringCountMax: 512

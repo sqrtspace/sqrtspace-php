@@ -1,0 +1,50 @@
+# Composer
+/vendor/
+composer.lock
+
+# PHPUnit
+/build/
+/coverage/
+.phpunit.result.cache
+phpunit.xml
+
+# PHP CS Fixer
+.php-cs-fixer.cache
+.php_cs.cache
+
+# PHPStan
+phpstan.neon
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Cache
+.cache/
+
+# Test artifacts
+/tests/tmp/
+/tests/fixtures/tmp/
+
+# Documentation build
+/docs/_build/
+
+# Node (if using any JS tools)
+node_modules/
+npm-debug.log
+yarn-error.log

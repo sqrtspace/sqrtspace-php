@@ -1,0 +1,89 @@
+{
+    "name": "sqrtspace/spacetime",
+    "description": "High-performance PHP library for memory-efficient processing of large datasets with streaming, batching, and time/space complexity optimization",
+    "type": "library",
+    "keywords": [
+        "streaming",
+        "memory-efficient",
+        "large-datasets",
+        "batch-processing",
+        "external-sort",
+        "laravel",
+        "symfony",
+        "performance",
+        "big-data"
+    ],
+    "homepage": "https://github.com/sqrtspace/spacetime-php",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "David H. Friedel Jr.",
+            "email": "dfriedel@marketally.ai"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "psr/log": "^3.0",
+        "psr/container": "^2.0",
+        "psr/simple-cache": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "mockery/mockery": "^1.6",
+        "phpstan/phpstan": "^1.10",
+        "friendsofphp/php-cs-fixer": "^3.40",
+        "symfony/console": "^6.0|^7.0",
+        "symfony/dependency-injection": "^6.0|^7.0",
+        "symfony/config": "^6.0|^7.0",
+        "illuminate/support": "^10.0|^11.0",
+        "illuminate/database": "^10.0|^11.0"
+    },
+    "suggest": {
+        "ext-pcntl": "For better memory monitoring and signal handling",
+        "ext-apcu": "For high-performance caching",
+        "illuminate/support": "For Laravel integration",
+        "symfony/framework-bundle": "For Symfony integration"
+    },
+    "autoload": {
+        "psr-4": {
+            "SqrtSpace\\SpaceTime\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SqrtSpace\\SpaceTime\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "analyse": "vendor/bin/phpstan analyse",
+        "cs-check": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "cs-fix": "vendor/bin/php-cs-fixer fix",
+        "check": [
+            "@cs-check",
+            "@analyse",
+            "@test"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SqrtSpace\\SpaceTime\\Laravel\\SpaceTimeServiceProvider"
+            ]
+        },
+        "symfony": {
+            "bundles": [
+                "SqrtSpace\\SpaceTime\\Symfony\\SpaceTimeBundle"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
